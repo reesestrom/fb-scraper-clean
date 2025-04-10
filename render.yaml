@@ -2,5 +2,7 @@ services:
   - type: web
     name: flipfinder-fb-scraper
     env: node
+    plan: starter
     buildCommand: ./render-build.sh
-    startCommand: npm start
+    startCommand: node server.js
+    branch: main
