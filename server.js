@@ -41,8 +41,19 @@ app.post("/scrape", async (req, res) => {
     );
 
     console.log("🔎 Navigating to:", url);
-    await page.goto(url, { waitUntil: "networkidle2", timeout: 30000 });
-    await page.waitForTimeout(5000);
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 45000 });
+
+    try {
+      await page.waitForSelector("a[href*='/marketplace/item/']", { timeout: 15000 });
+      await page.waitForTimeout(3000); // small buffer
+    } catch (err) {
+      console.warn("⚠️ No listing anchor found in time.");
+    }
+
+    // Dump first 1000 characters of the loaded HTML for debugging
+    const html = await page.content();
+    console.log("📄 HTML Snapshot:\n", html.slice(0, 1000));
+
 
     const listings = await page.evaluate(() => {
       const anchors = [...document.querySelectorAll("a[href*='/marketplace/item/']")];
