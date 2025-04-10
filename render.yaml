@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: flipfinder-fb-scraper
+    env: node
+    buildCommand: ./render-build.sh
+    startCommand: npm start
