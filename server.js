@@ -3,6 +3,7 @@ const express = require("express");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const cors = require("cors");
+const path = require("path");
 
 puppeteer.use(StealthPlugin());
 
@@ -18,11 +19,14 @@ app.post("/scrape", async (req, res) => {
   const url = `https://www.facebook.com/marketplace/${city}/search?query=${query}&daysSinceListed=15`;
 
   try {
-    const browser = await puppeteerExtra.launch({
-        headless: true,
-        executablePath: "/opt/render/project/src/chrome/chrome/chrome", // manually set
-        args: ["--no-sandbox", "--disable-setuid-sandbox"]
-      });      
+    const chromePath = path.join(__dirname, "chrome", "chrome", "chrome"); // ✅ Local Chrome path
+
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: chromePath,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"]
+    });
+
     const page = await browser.newPage();
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/117 Safari/537.36"

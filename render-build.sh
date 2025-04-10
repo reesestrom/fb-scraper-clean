@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# Install Node dependencies
+# Install dependencies
 npm install
 
-# Download latest Chrome-for-Testing (Linux 64-bit)
+# Create chrome folder
 mkdir -p chrome
 cd chrome
-curl -O https://storage.googleapis.com/chrome-for-testing-public/117.0.5938.92/linux64/chrome-linux64.zip
-unzip chrome-linux64.zip
+
+# Download stable Chrome-for-Testing (manually set version known to work)
+curl -sSL -o chrome.zip https://storage.googleapis.com/chrome-for-testing-public/118.0.5993.70/linux64/chrome-linux64.zip
+unzip chrome.zip
 mv chrome-linux64 chrome
 chmod +x chrome/chrome
