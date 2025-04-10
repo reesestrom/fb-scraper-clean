@@ -6,4 +6,3 @@ services:
     buildCommand: ./render-build.sh
     startCommand: node server.js
     branch: main
-    shell: bash
