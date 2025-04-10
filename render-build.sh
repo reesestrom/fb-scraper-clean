@@ -1,8 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
-echo "🔧 Installing dependencies..."
-npm install
+echo "🧪 Node version:"
+node -v
+
+echo "🧪 NPM version:"
+npm -v
+
+echo "🧪 Environment info:"
+env
+
+echo "📦 Running npm install with verbose logs..."
+timeout 90s npm install --verbose || {
+  echo "❌ npm install failed or timed out"
+  exit 1
+}
+
 
 echo "⬇️ Downloading Chrome for Puppeteer..."
 mkdir -p chrome && cd chrome
