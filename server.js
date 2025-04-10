@@ -18,10 +18,11 @@ app.post("/scrape", async (req, res) => {
   const url = `https://www.facebook.com/marketplace/${city}/search?query=${query}&daysSinceListed=15`;
 
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    });
+    const browser = await puppeteerExtra.launch({
+        headless: true,
+        executablePath: "/opt/render/project/src/chrome/chrome/chrome", // manually set
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
+      });      
     const page = await browser.newPage();
     await page.setUserAgent(
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/117 Safari/537.36"
