@@ -2,7 +2,9 @@ services:
   - type: web
     name: fb-scraper-final
     env: node
-    plan: starter
+    envVars:
+      - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+        value: "true"
     buildCommand: ./render-build.sh
     startCommand: node server.js
     branch: main
