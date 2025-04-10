@@ -17,3 +17,4 @@ chmod +x chrome/chrome
 cd ..
 
 # Step 5: Done — let Render run `npm start`
+echo "✅ Chrome build steps complete"
