@@ -20,10 +20,17 @@ app.post("/scrape", async (req, res) => {
   try {
     const chromePath = path.join(__dirname, "chrome", "chrome", "chrome");
     const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: chromePath,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    });
+        headless: true,
+        executablePath: chromePath,
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage",
+          "--disable-gpu",
+          "--single-process",
+          "--no-zygote"
+        ]
+      });
 
     const page = await browser.newPage();
     await page.setUserAgent(
