@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
@@ -19,8 +18,7 @@ app.post("/scrape", async (req, res) => {
   const url = `https://www.facebook.com/marketplace/${city}/search?query=${query}&daysSinceListed=15`;
 
   try {
-    const chromePath = path.join(__dirname, "chrome", "chrome", "chrome"); // ✅ Local Chrome path
-
+    const chromePath = path.join(__dirname, "chrome", "chrome", "chrome");
     const browser = await puppeteer.launch({
       headless: true,
       executablePath: chromePath,
