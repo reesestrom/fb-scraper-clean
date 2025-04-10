@@ -1,7 +1,5 @@
 const express = require("express");
 const puppeteer = require("puppeteer-extra");
-const puppeteerCore = require("puppeteer-core");
-puppeteer.use(StealthPlugin());
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const cors = require("cors");
 const path = require("path");
@@ -14,6 +12,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
+
 app.post("/scrape", async (req, res) => {
   const { search, city = "saltlakecity" } = req.body;
   const query = encodeURIComponent(search);
@@ -21,7 +20,7 @@ app.post("/scrape", async (req, res) => {
 
   try {
     const chromePath = path.join(__dirname, "chrome", "chrome", "chrome");
-    const browser = await puppeteerCore.launch({
+    const browser = await puppeteer.launch({
       headless: true,
       executablePath: chromePath,
       args: [
@@ -33,6 +32,7 @@ app.post("/scrape", async (req, res) => {
         "--no-zygote"
       ]
     });
+    
     
 
     const page = await browser.newPage();
